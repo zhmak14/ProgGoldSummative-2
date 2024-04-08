@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "proggoldsummative-2",
+  "version": "0.0.1",
+  "description": "Programming Gold Summative Assignment 2",
+  "main": "server.js",
+  "author": "sqck79@durham.ac.uk",
+  "license": "ISC"
+}
