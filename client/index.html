@@ -5,11 +5,23 @@
 </head>
 <body>
     <h1>Welcome to Travel helper</h1>
-    <form method="GET" action="citysearch">
-        <p>Continent: <input name="continent"></p>
+
+    <form id="search" method="GET" action="citysearch">
+        <p>Search: <input name="input"></p>
+        <button id="searchCities">find city</button>
+        <div id="search_result"></div>
     </form>
+
     <button id="getCities">Get cities</button>
-    <script src="switch.js"></script>
     <div id="result"></div>
+
+    <form method="POST" action="addcity" id="new_city_form">
+        name <input name="name">
+        country <input name="country">
+        continent <input name="continent">
+        <button type="submit">add city</button>
+    </form>
+
+    <script src="index.js"></script>
 </body>
 </html>
