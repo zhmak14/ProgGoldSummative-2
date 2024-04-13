@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express()
 const fs = require('fs');
-const cities = require("./file.json");
+const cities = require("./citiesfile.json");
 
 
 app.use(express.static('client'));
@@ -53,7 +53,15 @@ app.post('/addcity', function(req, resp){
     const newCity = {name, country, continent};
     cities.push(newCity);
     console.log(JSON.stringify(cities));
-    fs.writeFileSync('./file.json', JSON.stringify(cities));
+    fs.writeFile('./citiesfile.json', JSON.stringify(cities), (error) => {
+        if (error) {
+            console.error("File not written", error);
+            resp.status(500).send("City not added");
+        } else {
+            console.log("File written");
+            resp.status(200).send("City added");
+        }
+    });
 });
 
 
