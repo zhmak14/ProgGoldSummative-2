@@ -4,7 +4,7 @@
   "description": "Programming Gold Summative Assignment 2",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon --ignore file.json server.js"
   },
   "author": "sqck79@durham.ac.uk",
   "license": "ISC",

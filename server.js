@@ -1,14 +1,8 @@
 const express = require('express');
 const app = express()
+const fs = require('fs');
+const cities = require("./file.json");
 
-const cities = [
-  {"name": "Budapest",
-  "country": "Hungary",
-  "continent": "Europe"},
-  {"name": "Tokyo",
-  "country": "Japan",
-  "continent": "Asia"},
-]
 
 app.use(express.static('client'));
 app.use(express.json());
@@ -57,7 +51,9 @@ app.post('/addcity', function(req, resp){
     const country = req.body.country;
     const continent = req.body.continent;
     const newCity = {name, country, continent};
-    cities.push(newCity); 
+    cities.push(newCity);
+    console.log(JSON.stringify(cities));
+    fs.writeFileSync('./file.json', JSON.stringify(cities));
 });
 
 
