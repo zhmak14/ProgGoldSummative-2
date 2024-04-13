@@ -10,14 +10,14 @@ async function cityFetch() {
     }
 }
 
-const allButton = document.getElementById("getCities");
+const allButton = document.getElementById('getCities');
 
 allButton.addEventListener('click', function (event) {
     cityFetch();
 });
 
-const searchButton = document.getElementById("searchCities");
-const searchForm = document.getElementById("search");
+const searchButton = document.getElementById('searchCities');
+const searchForm = document.getElementById('search');
 
 searchButton.addEventListener('click', async function (event){
     event.preventDefault()
@@ -32,7 +32,7 @@ searchButton.addEventListener('click', async function (event){
     } 
 });
 
-const newCityForm = document.getElementById("new_city_form");
+const newCityForm = document.getElementById('new_city_form');
 
 newCityForm.addEventListener('submit', async function (event) {
     event.preventDefault();
@@ -47,7 +47,7 @@ newCityForm.addEventListener('submit', async function (event) {
                 "Content-Type": "application/json"
             },
         });
-        if (response.ok) {
+        if (response.ok && document.getElementById('result').textContent.trim().length > 0) {
             cityFetch();
         }
     } catch (error) {
