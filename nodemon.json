@@ -1,0 +1,5 @@
+{
+    "ignore": ["*.json"],
+    "watch": ["*.js"],
+    "exec": "node server.js"
+  }
