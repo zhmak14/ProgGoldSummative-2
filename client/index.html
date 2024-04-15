@@ -9,18 +9,20 @@
     <form id="search" method="GET" action="citysearch">
         <p>Search: <input name="input"></p>
         <button id="searchCities">find city</button>
-        <div id="search_result"></div>
     </form>
 
-    <button id="getCities">Get cities</button>
-    <div id="result"></div>
-
-    <form method="POST" action="addcity" id="new_city_form">
+    <button id="showFormButton">Add New City</button>
+    <form method="POST" action="addcity" id="newCityForm" style="display: none;">
         name <input name="name">
         country <input name="country">
         continent <input name="continent">
         <button type="submit">add city</button>
     </form>
+
+    <button id="getCities">Get cities</button>
+    <div id="getResult"></div>
+
+    
 
     <script src="index.js"></script>
 </body>

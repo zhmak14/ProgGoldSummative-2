@@ -1,21 +1,35 @@
-
+let fetchHappened = false;
 
 async function cityFetch() {
     try {
         let response = await fetch('http://127.0.0.1:8090/cities');
-        let body = await response.text();
-        document.getElementById('result').innerHTML = body;
+        let cities = await response.json();  
+        let html = '<div class="cities">';
+        for (const city of cities) {
+            html += `<div class="city">
+                        <h2>${city.name}</h2>
+                        <p><strong>Country:</strong> ${city.country}<br>
+                           <strong>Continent:</strong> ${city.continent}</p>
+                        <img src="path_to_image" alt="${city.name}"></p>
+                        <p>activities...<br>
+                     </div>`;
+        }
+        document.getElementById('getResult').innerHTML = html;
+        fetchHappened = true;
     } catch (error) {
         alert(error);
+        fetchHappened = false;
     }
 }
 
+//display
 const allButton = document.getElementById('getCities');
 
 allButton.addEventListener('click', function (event) {
     cityFetch();
 });
 
+//search
 const searchButton = document.getElementById('searchCities');
 const searchForm = document.getElementById('search');
 
@@ -24,21 +38,32 @@ searchButton.addEventListener('click', async function (event){
     let input = searchForm.input.value;
     try{
         let response = await fetch('http://127.0.0.1:8090/citysearch?input=' + input);
-        let body = await response.text();
-        document.getElementById('search_result').innerHTML=body;
+        let cities = await response.json();
+        let html = '<div class="cities">';
+        for (const city of cities) {
+            html += `<div class="city">
+                        <h2>${city.name}</h2>
+                        <p><strong>Country:</strong> ${city.country}<br>
+                           <strong>Continent:</strong> ${city.continent}</p>
+                        <img src="path_to_image" alt="${city.name}"></p>
+                        <p>activities...<br>
+                     </div>`;
+        }
+        document.getElementById('getResult').innerHTML = html;
     }
     catch(error){
         alert(error)
     } 
 });
 
-const newCityForm = document.getElementById('new_city_form');
+//add
+const newCityForm = document.getElementById('newCityForm');
+const showButton = document.getElementById('showFormButton');
 
 newCityForm.addEventListener('submit', async function (event) {
     event.preventDefault();
     const formData = new FormData(newCityForm);
     const formDataJSON = JSON.stringify(Object.fromEntries(formData));
-
     try {
         let response = await fetch('addcity', {
             method: "POST",
@@ -47,10 +72,27 @@ newCityForm.addEventListener('submit', async function (event) {
                 "Content-Type": "application/json"
             },
         });
-        if (response.ok && document.getElementById('result').textContent.trim().length > 0) {
+        if (response.ok && fetchHappened) {
             cityFetch();
         }
+        alert("Thank you, City added!")
+        newCityForm.style.display = 'none';
+        showButton.textContent = 'Add New City';
+        
     } catch (error) {
             alert(error);
     }
 });
+
+
+showButton.addEventListener('click', function() {
+    if (newCityForm.style.display === 'none' || newCityForm.style.display === '') {
+        newCityForm.style.display = 'block';  
+        showButton.textContent = 'Cancel';
+        newCityForm.reset();
+    } else {
+        newCityForm.style.display = 'none';
+        showButton.textContent = 'Add New City';
+    }
+});
+

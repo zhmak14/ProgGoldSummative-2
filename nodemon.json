@@ -1,5 +1,5 @@
 {
     "ignore": ["*.json"],
-    "watch": ["*.js"],
+    "watch": ["*.js"], 
     "exec": "node server.js"
   }
