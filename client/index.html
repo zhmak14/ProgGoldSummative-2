@@ -10,12 +10,13 @@
         <p>Search: <input name="input"></p>
         <button id="searchCities">find city</button>
     </form>
-
+    
     <button id="showFormButton">Add New City</button>
-    <form method="POST" action="addcity" id="newCityForm" style="display: none;">
+    <form method="POST" action="addcity" id="newCityForm" enctype="multipart/form-data" style="display: none;">
         name <input name="name">
         country <input name="country">
         continent <input name="continent">
+        picture <input type="file" name="image" accept="image/*">
         <button type="submit">add city</button>
     </form>
 

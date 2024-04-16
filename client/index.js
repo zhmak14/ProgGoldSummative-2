@@ -6,11 +6,11 @@ async function cityFetch() {
         let cities = await response.json();  
         let html = '<div class="cities">';
         for (const city of cities) {
-            html += `<div class="city">
+             html += `<div class="city">
                         <h2>${city.name}</h2>
                         <p><strong>Country:</strong> ${city.country}<br>
                            <strong>Continent:</strong> ${city.continent}</p>
-                        <img src="path_to_image" alt="${city.name}"></p>
+                        <img src="${city.picture}" alt="Picture of ${city.name}"></p>
                         <p>activities...<br>
                      </div>`;
         }
@@ -45,7 +45,7 @@ searchButton.addEventListener('click', async function (event){
                         <h2>${city.name}</h2>
                         <p><strong>Country:</strong> ${city.country}<br>
                            <strong>Continent:</strong> ${city.continent}</p>
-                        <img src="path_to_image" alt="${city.name}"></p>
+                        <img src="${city.picture}" alt="Picture of ${city.name}"></p>
                         <p>activities...<br>
                      </div>`;
         }
@@ -63,24 +63,20 @@ const showButton = document.getElementById('showFormButton');
 newCityForm.addEventListener('submit', async function (event) {
     event.preventDefault();
     const formData = new FormData(newCityForm);
-    const formDataJSON = JSON.stringify(Object.fromEntries(formData));
     try {
         let response = await fetch('addcity', {
             method: "POST",
-            body: formDataJSON,
-            headers: {
-                "Content-Type": "application/json"
-            },
+            body: formData,
         });
-        if (response.ok && fetchHappened) {
-            cityFetch();
+        if (response.ok) {
+            cityFetch(); 
+            alert("Thank you, City added!");
+            newCityForm.reset(); 
+            newCityForm.style.display = 'none';  
+            showButton.textContent = 'Add New City';
         }
-        alert("Thank you, City added!")
-        newCityForm.style.display = 'none';
-        showButton.textContent = 'Add New City';
-        
     } catch (error) {
-            alert(error);
+        alert("Error: " + error.message);
     }
 });
 
