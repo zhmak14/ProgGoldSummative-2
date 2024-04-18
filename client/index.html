@@ -2,8 +2,10 @@
 <html>
 <head>
     <title>Travel helper</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+    
     <h1>Welcome to Travel helper</h1>
 
     <form id="search" method="GET" action="citysearch">
@@ -13,10 +15,10 @@
     
     <button id="showFormButton">Add New City</button>
     <form method="POST" action="addcity" id="newCityForm" enctype="multipart/form-data" style="display: none;">
-        name <input name="name">
-        country <input name="country">
-        continent <input name="continent">
-        picture <input type="file" name="image" accept="image/*">
+        name <input name="name" required>
+        country <input name="country" required>
+        continent <input name="continent" required>
+        picture <input type="file" name="image" accept="image/*" required>
         <button type="submit">add city</button>
     </form>
 
@@ -24,7 +26,7 @@
     <div id="getResult"></div>
 
     
-
+    
     <script src="index.js"></script>
 </body>
 </html>

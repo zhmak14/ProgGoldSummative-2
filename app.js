@@ -1,5 +1,5 @@
 const express = require('express');
-const app = express()
+const app = express();
 const fs = require('fs');
 const cities = require("./citiesfile.json");
 const multer = require('multer');
@@ -11,11 +11,11 @@ const storage = multer.diskStorage({
         cb(null, 'images/')
     },
     filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-        cb(null, file.fieldname + '-' + uniqueSuffix)
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, file.fieldname + '-' + uniqueSuffix);
     }
-})
-const uploadImg = multer({storage: storage})
+});
+const uploadImg = multer({storage: storage});
 //This piece of code configures multer and is referenced in README.txt, 
 //written with the help of npmjs.com (official multer page) and Stack Overflow (link in README)
 
@@ -25,12 +25,12 @@ app.use(express.json());
 app.use('/images', express.static('images'));
 
 app.get('/cities', function(req, resp){
-    resp.send(cities)
+    resp.send(cities);
   })
 
   
 
-app.get('/city/:name', function(req, resp){ //url search aka useless for now
+app.get('/city/:name', function(req, resp){
     let cityName = req.params.name;
     let found = false;
     for (let city of cities) {
@@ -57,7 +57,7 @@ app.get('/citysearch', function(req, resp){
       }
     }
     if(results.length == 0){
-        resp.send("No city found");
+        resp.json({ message: "Sorry, nothing found" });
     }
     else{
         resp.send(results);
@@ -78,7 +78,6 @@ app.post('/addcity', uploadImg.single('image'), function(req, resp){
             console.error("File not written", error);
             resp.status(500).send("City not added");
         } else {
-            console.log("File written");
             resp.status(200).send("City added");
         }
     });

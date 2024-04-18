@@ -10,7 +10,7 @@ async function cityFetch() {
                         <h2>${city.name}</h2>
                         <p><strong>Country:</strong> ${city.country}<br>
                            <strong>Continent:</strong> ${city.continent}</p>
-                        <img src="${city.picture}" alt="Picture of ${city.name}"></p>
+                        <img src="${city.picture}" alt="Picture of ${city.name}">
                         <p>activities...<br>
                      </div>`;
         }
@@ -40,16 +40,21 @@ searchButton.addEventListener('click', async function (event){
         let response = await fetch('http://127.0.0.1:8090/citysearch?input=' + input);
         let cities = await response.json();
         let html = '<div class="cities">';
-        for (const city of cities) {
-            html += `<div class="city">
-                        <h2>${city.name}</h2>
-                        <p><strong>Country:</strong> ${city.country}<br>
-                           <strong>Continent:</strong> ${city.continent}</p>
-                        <img src="${city.picture}" alt="Picture of ${city.name}"></p>
-                        <p>activities...<br>
-                     </div>`;
+        if(cities.message){
+            alert(cities.message);
+        }else{
+            for (const city of cities) {
+                html += `<div class="city">
+                            <h2>${city.name}</h2>
+                            <p><strong>Country:</strong> ${city.country}<br>
+                                <strong>Continent:</strong> ${city.continent}</p>
+                            <img src="${city.picture}" alt="Picture of ${city.name}">
+                            <p>activities...<br>
+                        </div>`;
+                document.getElementById('getResult').innerHTML = html;
+            }
         }
-        document.getElementById('getResult').innerHTML = html;
+        
     }
     catch(error){
         alert(error)
@@ -76,7 +81,7 @@ newCityForm.addEventListener('submit', async function (event) {
             showButton.textContent = 'Add New City';
         }
     } catch (error) {
-        alert("Error: " + error.message);
+        alert(error);
     }
 });
 
