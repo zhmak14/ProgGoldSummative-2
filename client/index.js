@@ -9,10 +9,11 @@ async function cityFetch() {
              html += `<div class="city">
                         <h2>${city.name}</h2>
                         <p><strong>Country:</strong> ${city.country}<br>
-                           <strong>Continent:</strong> ${city.continent}</p>
+                            <strong>Continent:</strong> ${city.continent}</p>
                         <img src="${city.picture}" alt="Picture of ${city.name}">
-                        <p>activities...<br>
-                     </div>`;
+                        <button class="activitiesBtn" data-city="${city.name}">Show activities</button>
+                        <div class="activities" id="activities${city.name}"></div>
+                    </div>`;
         }
         document.getElementById('getResult').innerHTML = html;
         fetchHappened = true;
@@ -22,14 +23,14 @@ async function cityFetch() {
     }
 }
 
-//display
+//display cities
 const allButton = document.getElementById('getCities');
 
 allButton.addEventListener('click', function (event) {
     cityFetch();
 });
 
-//search
+//search cities
 const searchButton = document.getElementById('searchCities');
 const searchForm = document.getElementById('search');
 
@@ -40,16 +41,15 @@ searchButton.addEventListener('click', async function (event){
         let response = await fetch('http://127.0.0.1:8090/citysearch?input=' + input);
         let cities = await response.json();
         let html = '<div class="cities">';
-        if(cities.message){
+        if (cities.message) {
             alert(cities.message);
-        }else{
+        } else {
             for (const city of cities) {
                 html += `<div class="city">
                             <h2>${city.name}</h2>
-                            <p><strong>Country:</strong> ${city.country}<br>
-                                <strong>Continent:</strong> ${city.continent}</p>
                             <img src="${city.picture}" alt="Picture of ${city.name}">
-                            <p>activities...<br>
+                            <button class="activitiesBtn" data-city="${city.name}">Show activities</button>
+                            <div class="activities" id="activities${city.name}"></div>
                         </div>`;
                 document.getElementById('getResult').innerHTML = html;
             }
@@ -61,7 +61,7 @@ searchButton.addEventListener('click', async function (event){
     } 
 });
 
-//add
+//add city
 const newCityForm = document.getElementById('newCityForm');
 const showButton = document.getElementById('showFormButton');
 
@@ -85,7 +85,7 @@ newCityForm.addEventListener('submit', async function (event) {
     }
 });
 
-
+//add city form
 showButton.addEventListener('click', function() {
     if (newCityForm.style.display === 'none' || newCityForm.style.display === '') {
         newCityForm.style.display = 'block';  
@@ -97,3 +97,31 @@ showButton.addEventListener('click', function() {
     }
 });
 
+//display activities
+document.getElementById('getResult').addEventListener('click', async function(event) {
+    const activitiesButton = event.target;
+    const cityName = activitiesButton.getAttribute('data-city');
+    const activitiesDiv = document.getElementById(`activities${cityName}`);
+    if (activitiesButton.textContent.includes('Show')) {
+        try {
+            let response = await fetch('http://127.0.0.1:8090/activities?city=' + cityName);
+            let activities = await response.json();
+            let activityHtml = '';
+            if (activities.length == 0) {
+                activityHtml = "Sorry, no activities have been added for this city for now";
+            } else {
+                activities.forEach(activity => {
+                    activityHtml += `<p><strong>Activity:</strong> ${activity.name}<br><strong>Type:</strong> ${activity.type}</p>`;
+                });
+            }
+            activitiesDiv.innerHTML = activityHtml;
+            activitiesButton.textContent = "Hide activities";
+        } catch (error) {
+            console.error('Error fetching activities:', error);
+            alert('Failed to load activities: ' + (error.message || error));
+        }
+    } else {
+        activitiesDiv.innerHTML = '';
+        activitiesButton.textContent = "Show activities";
+    }
+});
