@@ -1,3 +1,38 @@
+
+function showConnectionError() {
+    const messageBox = document.getElementById('messageBox');
+    messageBox.textContent = 'Unable to connect to the server. Please try again later';
+    messageBox.style.display = 'block';
+}
+
+function hideConnectionError() {
+    const messageBox = document.getElementById('messageBox');
+    messageBox.style.display = 'none';
+}
+
+async function tryFetch(link) {
+    try {
+        const response = await fetch(link);
+        if (!response.ok) {
+            throw new Error('Server error');
+        }
+        return await response.json();
+    } catch (error) {
+        showConnectionError();
+        setTimeout(() => retryConnection(link), 3000); 
+        throw error;
+    }
+}
+
+async function retryConnection(link) {
+    try {
+        const request = await tryFetch(link);
+        hideConnectionError(); 
+    } catch (error) {
+        setTimeout(() => retryConnection(link), 3000);
+    }
+}
+
 let fetchHappened = false;
 
 async function cityFetch() {
@@ -18,8 +53,8 @@ async function cityFetch() {
         document.getElementById('getResult').innerHTML = html;
         fetchHappened = true;
     } catch (error) {
-        alert(error);
-        fetchHappened = false;
+        showConnectionError();
+        setTimeout(() => retryConnection('http://127.0.0.1:8090/cities'), 3000);
     }
 }
 
@@ -53,11 +88,11 @@ searchButton.addEventListener('click', async function (event){
                         </div>`;
                 document.getElementById('getResult').innerHTML = html;
             }
-        }
-        
+        }  
     }
     catch(error){
-        alert(error)
+        showConnectionError();
+        setTimeout(() => retryConnection('http://127.0.0.1:8090/citysearch?input=' + input), 3000);
     } 
 });
 
@@ -68,6 +103,7 @@ const showButton = document.getElementById('showFormButton');
 newCityForm.addEventListener('submit', async function (event) {
     event.preventDefault();
     const formData = new FormData(newCityForm);
+    hideConnectionError()
     try {
         let response = await fetch('addcity', {
             method: "POST",
@@ -86,7 +122,7 @@ newCityForm.addEventListener('submit', async function (event) {
             showButton.textContent = 'Add New City';
         }
     } catch (error) {
-        alert(error);
+        showConnectionError();
     }
 });
 
@@ -106,6 +142,9 @@ showButton.addEventListener('click', function() {
 //display activities
 document.getElementById('getResult').addEventListener('click', async function(event) {
     const activitiesButton = event.target;
+    if (activitiesButton.nodeName !== 'BUTTON') {
+        return;
+    }
     const cityName = activitiesButton.getAttribute('data-city');
     const activitiesDiv = document.getElementById(`activities${cityName}`);
     if (activitiesButton.textContent.includes('Show')) {
@@ -126,11 +165,12 @@ document.getElementById('getResult').addEventListener('click', async function(ev
             console.log('City Name:', cityName);
             console.log('Activities Div:', activitiesDiv);
         } catch (error) {
+            showConnectionError();
+            setTimeout(() => retryConnection('http://127.0.0.1:8090/activities?city=' + cityName), 3000);
         }
     } else if (activitiesButton.textContent.includes('Filter')) {
         filterKidFriendlyActivities(cityName, activitiesDiv);
     }
-    
     else {
         activitiesDiv.innerHTML = '';
         activitiesButton.textContent = "Show all activities";
@@ -150,6 +190,8 @@ async function filterKidFriendlyActivities(cityName, activitiesDiv) {
         if (!kidsHtml) kidsHtml = "No kid-friendly activities have been added for this city";
         activitiesDiv.innerHTML = kidsHtml;
     } catch (error) {
+        showConnectionError();
+        setTimeout(() => retryConnection('http://127.0.0.1:8090/activities?city=' + cityName), 3000);
     }
 }
 
@@ -159,6 +201,7 @@ const showActivityFormButton = document.getElementById("showActivityFormButton")
 
 newActivityForm.addEventListener('submit', async function (event) {
     event.preventDefault();
+    hideConnectionError();
     const formData = new FormData(newActivityForm);
     try {
         let response = await fetch('addactivity', {
@@ -172,7 +215,7 @@ newActivityForm.addEventListener('submit', async function (event) {
             showActivityFormButton.textContent = 'Add New Activity';
         }
     } catch (error) {
-        alert(error);
+        showConnectionError();
     }
 });
 
