@@ -15,11 +15,23 @@
     
     <button id="showFormButton">Add New City</button>
     <form method="POST" action="addcity" id="newCityForm" enctype="multipart/form-data" style="display: none;">
-        name <input name="name" required>
-        country <input name="country" required>
-        continent <input name="continent" required>
-        picture <input type="file" name="image" accept="image/*" required>
+        Name: <input name="name" required>
+        Country: <input name="country" required>
+        Continent: <input name="continent" required>
+        Picture: <input type="file" name="image" accept="image/*" required>
         <button type="submit">Add city</button>
+    </form>
+
+    <button id="showActivityFormButton">Add New Activity</button>
+    <form id="newActivityForm" method="POST" action="/addactivity" enctype="multipart/form-data" style="display: none;">
+        Activity: <input name="name" required>
+        Type of activity: <input name="type" required>
+        Kids friendly: <select name="kids">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+        Select city: <select id="citySelect" name="city" required></select>
+        <button type="submit">Add Activity</button>
     </form>
 
     <button id="getCities">Explore all cities</button>

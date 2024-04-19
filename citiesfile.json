@@ -1,1 +1,14 @@
-[{"name":"Budapest","country":"Hungary","continent":"Europe","picture":"images/budapest.jpg"},{"name":"Tokyo","country":"Japan","continent":"Asia","picture":"images/tokyo.jpg"}]
+[
+  {
+    "name": "Budapest",
+    "country": "Hungary",
+    "continent": "Europe",
+    "picture": "images/budapest.jpg"
+  },
+  {
+    "name": "Tokyo",
+    "country": "Japan",
+    "continent": "Asia",
+    "picture": "images/tokyo.jpg"
+  }
+]

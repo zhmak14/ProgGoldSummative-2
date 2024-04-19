@@ -73,8 +73,13 @@ newCityForm.addEventListener('submit', async function (event) {
             method: "POST",
             body: formData,
         });
-        if (response.ok) {
+        if (response.ok && fetchHappened) {
             cityFetch(); 
+            alert("Thank you, City added!");
+            newCityForm.reset(); 
+            newCityForm.style.display = 'none';  
+            showButton.textContent = 'Add New City';
+        } else if(response.ok) {
             alert("Thank you, City added!");
             newCityForm.reset(); 
             newCityForm.style.display = 'none';  
@@ -87,7 +92,7 @@ newCityForm.addEventListener('submit', async function (event) {
 
 //add city form
 showButton.addEventListener('click', function() {
-    if (newCityForm.style.display === 'none' || newCityForm.style.display === '') {
+    if (newCityForm.style.display == 'none' || newCityForm.style.display == '') {
         newCityForm.style.display = 'block';  
         showButton.textContent = 'Cancel';
         newCityForm.reset();
@@ -117,11 +122,63 @@ document.getElementById('getResult').addEventListener('click', async function(ev
             activitiesDiv.innerHTML = activityHtml;
             activitiesButton.textContent = "Hide activities";
         } catch (error) {
-            console.error('Error fetching activities:', error);
-            alert('Failed to load activities: ' + (error.message || error));
+
         }
     } else {
         activitiesDiv.innerHTML = '';
         activitiesButton.textContent = "Show activities";
+    }
+});
+
+//add activity
+const newActivityForm = document.getElementById("newActivityForm");
+const showActivityFormButton = document.getElementById("showActivityFormButton");
+
+newActivityForm.addEventListener('submit', async function (event) {
+    event.preventDefault();
+    const formData = new FormData(newActivityForm);
+    try {
+        let response = await fetch('addactivity', {
+            method: "POST",
+            body: formData,
+        });
+        if (response.ok) {
+            alert("Thank you, Activity added!");
+            newActivityForm.reset(); 
+            newActivityForm.style.display = 'none';  
+            showActivityFormButton.textContent = 'Add New City';
+        }
+    } catch (error) {
+        alert(error);
+    }
+});
+
+async function formCityDropdown() {
+    try {
+        const response = await fetch('http://127.0.0.1:8090/cities');
+        const cities = await response.json();
+        const select = document.getElementById('citySelect');
+        cities.forEach(city => {
+            const option = document.createElement('option');
+            option.value = city.name;
+            option.textContent = city.name;
+            select.appendChild(option);
+        });
+    } catch (error) {
+        alert(error);
+    }
+}
+
+formCityDropdown();
+
+//show activity form
+showActivityFormButton.addEventListener('click', function() {
+    const form = document.getElementById('newActivityForm');
+    if (form.style.display == 'none' || form.style.display == '') {
+        form.style.display = 'block'; 
+        this.textContent = 'Cancel';
+    } else {
+        form.style.display = 'none';
+        this.textContent = 'Add New Activity';
     }
 });

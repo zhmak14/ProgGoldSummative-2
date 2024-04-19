@@ -74,7 +74,7 @@ app.post('/addcity', uploadImg.single('image'),function(req, resp) {
     const newCity = {name, country, continent, picture};
     cities.push(newCity);
     console.log(JSON.stringify(cities));
-    fs.writeFile('./citiesfile.json', JSON.stringify(cities), (error) => {
+    fs.writeFile('./citiesfile.json', JSON.stringify(cities, null, 2), (error) => {
         if (error) {
             console.error("File not written", error);
             resp.status(400).send("City not added");
@@ -93,6 +93,24 @@ app.get('/activities', function(req, resp) {
         }
     }
     resp.json(activityResults); 
+});
+
+
+app.post('/addactivity', uploadImg.none(), (req, res) => {
+    const name = req.body.name;
+    const type = req.body.type;
+    const kids = req.body.kids;
+    const city = req.body.city;
+    const newActivity = { name, type, kids, city };
+    activities.push(newActivity);
+    fs.writeFile('./activitiesfile.json', JSON.stringify(activities, null, 2), (error) => {
+        if (error) {
+            console.error('Failed to save new activity', err);
+            res.status(400).send("Failed to add activity");
+        } else {
+            res.send("Activity added");
+        }
+    });
 });
 
 module.exports = app;
