@@ -4,5 +4,11 @@
     "type": "Entertainment, Art, Pop-culture",
     "kids": "yes",
     "city": "tokyo"
+  },
+  {
+    "name": "Thermal Baths",
+    "type": "Relax, Spa",
+    "kids": "no",
+    "city": "Budapest"
   }
 ]

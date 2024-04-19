@@ -10,5 +10,11 @@
     "country": "Japan",
     "continent": "Asia",
     "picture": "images/tokyo.jpg"
+  },
+  {
+    "name": "Venice",
+    "country": "Italy",
+    "continent": "Europe",
+    "picture": "images/image-1713533526377-721977221"
   }
 ]

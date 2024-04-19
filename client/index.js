@@ -11,7 +11,7 @@ async function cityFetch() {
                         <p><strong>Country:</strong> ${city.country}<br>
                             <strong>Continent:</strong> ${city.continent}</p>
                         <img src="${city.picture}" alt="Picture of ${city.name}">
-                        <button class="activitiesBtn" data-city="${city.name}">Show activities</button>
+                        <button class="activitiesBtn" data-city="${city.name}">Show all activities</button>
                         <div class="activities" id="activities${city.name}"></div>
                     </div>`;
         }
@@ -48,7 +48,7 @@ searchButton.addEventListener('click', async function (event){
                 html += `<div class="city">
                             <h2>${city.name}</h2>
                             <img src="${city.picture}" alt="Picture of ${city.name}">
-                            <button class="activitiesBtn" data-city="${city.name}">Show activities</button>
+                            <button class="activitiesBtn" data-city="${city.name}">Show all activities</button>
                             <div class="activities" id="activities${city.name}"></div>
                         </div>`;
                 document.getElementById('getResult').innerHTML = html;
@@ -102,6 +102,7 @@ showButton.addEventListener('click', function() {
     }
 });
 
+
 //display activities
 document.getElementById('getResult').addEventListener('click', async function(event) {
     const activitiesButton = event.target;
@@ -115,20 +116,42 @@ document.getElementById('getResult').addEventListener('click', async function(ev
             if (activities.length == 0) {
                 activityHtml = "Sorry, no activities have been added for this city for now";
             } else {
-                activities.forEach(activity => {
+                for (const activity of activities) {
                     activityHtml += `<p><strong>Activity:</strong> ${activity.name}<br><strong>Type:</strong> ${activity.type}</p>`;
-                });
+                }
+                activityHtml += `<button class="filter-kids" data-city="${cityName}">Filter for Kid-Friendly</button>`;
             }
             activitiesDiv.innerHTML = activityHtml;
             activitiesButton.textContent = "Hide activities";
+            console.log('City Name:', cityName);
+            console.log('Activities Div:', activitiesDiv);
         } catch (error) {
-
         }
-    } else {
+    } else if (activitiesButton.textContent.includes('Filter')) {
+        filterKidFriendlyActivities(cityName, activitiesDiv);
+    }
+    
+    else {
         activitiesDiv.innerHTML = '';
-        activitiesButton.textContent = "Show activities";
+        activitiesButton.textContent = "Show all activities";
     }
 });
+
+async function filterKidFriendlyActivities(cityName, activitiesDiv) {
+    try {
+        let response = await fetch('http://127.0.0.1:8090/activities?city=' + cityName);
+        let activities = await response.json();
+        let kidsHtml = '';
+        for (const activity of activities) {
+            if (activity.kids.toLowerCase() === 'yes') {
+                kidsHtml += `<p><strong>Activity:</strong> ${activity.name}</p>`;
+            }
+        }
+        if (!kidsHtml) kidsHtml = "No kid-friendly activities have been added for this city";
+        activitiesDiv.innerHTML = kidsHtml;
+    } catch (error) {
+    }
+}
 
 //add activity
 const newActivityForm = document.getElementById("newActivityForm");
@@ -146,7 +169,7 @@ newActivityForm.addEventListener('submit', async function (event) {
             alert("Thank you, Activity added!");
             newActivityForm.reset(); 
             newActivityForm.style.display = 'none';  
-            showActivityFormButton.textContent = 'Add New City';
+            showActivityFormButton.textContent = 'Add New Activity';
         }
     } catch (error) {
         alert(error);
@@ -168,7 +191,6 @@ async function formCityDropdown() {
         alert(error);
     }
 }
-
 formCityDropdown();
 
 //show activity form

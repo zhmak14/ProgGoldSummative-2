@@ -5,8 +5,8 @@ const cities = require("./citiesfile.json");
 const multer = require('multer');
 const activities = require("./activitiesfile.json");
 
-//This piece of code configures multer and is referenced in README.txt, 
-//written with the help of npmjs.com (official multer page) and Stack Overflow thread (link in README)
+
+//written with the help of npmjs.com
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'images/')
@@ -17,8 +17,7 @@ const storage = multer.diskStorage({
     }
 });
 const uploadImg = multer({storage: storage});
-//This piece of code configures multer and is referenced in README.txt, 
-//written with the help of npmjs.com (official multer page) and Stack Overflow (link in README)
+//written with the help of npmjs.com
 
 
 app.use(express.static('client'));
