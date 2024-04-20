@@ -92,7 +92,7 @@ button:hover {
     margin-top: 10px;
 }
 
-#showFormButton, #showActivityFormButton, #searchCities {
+#showFormButton, #showActivityFormButton, #searchCities, #submitAct, #submitCity{
     width: 250px;
     display: inline-block;
 }

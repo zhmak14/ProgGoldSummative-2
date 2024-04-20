@@ -241,17 +241,23 @@ async function formCityDropdown() {
         const response = await fetch('http://127.0.0.1:8090/cities');
         const cities = await response.json();
         const select = document.getElementById('citySelect');
-        cities.forEach(city => {
+        select.innerHTML ='';
+        for (const city of cities) {
             const option = document.createElement('option');
             option.value = city.name;
             option.textContent = city.name;
             select.appendChild(option);
-        });
+        }
     } catch (error) {
         alert(error);
     }
 }
-formCityDropdown();
+
+const addActivityButton = document.getElementById('showActivityFormButton');
+addActivityButton.addEventListener('click', function(){
+    formCityDropdown();
+});
+
 
 //show activity form
 showActivityFormButton.addEventListener('click', function() {

@@ -4,6 +4,8 @@
   "description": "Programming Gold Summative Assignment 2",
   "main": "server.js",
   "scripts": {
+    "pretest": "eslint app.js",
+    "test": "jest",
     "start": "nodemon"
   },
   "author": "sqck79@durham.ac.uk",
@@ -13,7 +15,10 @@
     "multer": "^1.4.5-lts.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0"
-
+    "eslint": "^8.57.0",
+    "eslint-config-standard": "^17.1.0",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.0",
+    "supertest": "^6.3.4"
   }
 }

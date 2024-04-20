@@ -8,7 +8,31 @@
   {
     "name": "Thermal Baths",
     "type": "Relax, Spa",
+    "kids": "yes",
+    "city": "Budapest"
+  },
+  {
+    "name": "Hungarian Parliament Building",
+    "type": "Education, Entertainment",
     "kids": "no",
     "city": "Budapest"
+  },
+  {
+    "name": "Skytree Panorama",
+    "type": "Entertainment, Sightseeing",
+    "kids": "yes",
+    "city": "Tokyo"
+  },
+  {
+    "name": "Glass making on Murano Island",
+    "type": "Entertainment, Education, Shopping",
+    "kids": "no",
+    "city": "Venice"
+  },
+  {
+    "name": "Gandola city tour",
+    "type": "Entertainment, Sightseeing",
+    "kids": "yes",
+    "city": "Venice"
   }
 ]

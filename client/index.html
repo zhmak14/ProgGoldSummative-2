@@ -13,11 +13,11 @@
     <h1>Welcome to Travel helper</h1>
 
     <div class="textAbout">
-        <p3 >Here you can get inspiration and ideas for your future travels and choose what city to go an see! 
-            For each city you can find activities and places to go when you visit it. You can either explore all the cities previously added by our users or search for specific ones.
-            Search is possible by city names, countries or even continents.
-            Alternatively you can add cities or activities yourself to inspire other users. Share cities you've been to and things you did there, and don't forget about the picture!
-            Our website is your oyster, as well as the world!</p3>
+        Here you can get inspiration and ideas for your future travels and choose what city to go an see! 
+        For each city you can find activities and places to go when you visit it. You can either explore all the cities previously added by our users or search for specific ones.
+        Search is possible by city names, countries or even continents.
+        Alternatively you can add cities or activities yourself to inspire other users. Share cities you've been to and things you did there, and don't forget about the picture!
+        Our website is your oyster, as well as the world!
     </div>
     <form id="search" method="GET" action="citysearch">
         <p><input name="input" placeholder="Search"></p>
@@ -45,7 +45,7 @@
                     <label class="form-label">Picture:</label>
                     <input type="file" name="image" accept="image/*" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Add city</button>
+                <button type="submit" id="submitCity" class="btn btn-primary">Add city</button>
             </form>
           </div>
           <div class="col-md-1">
@@ -73,7 +73,7 @@
                     <label class="form-label">Select city:</label>
                     <select id="citySelect" name="city" required></select>
                 </div>
-                <button type="submit" class="btn btn-primary">Add Activity</button>
+                <button type="submit" id="submitAct" class="btn btn-primary">Add Activity</button>
             </form>
           </div>
         </div>
