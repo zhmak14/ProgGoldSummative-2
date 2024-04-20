@@ -42,12 +42,20 @@ async function cityFetch() {
         let html = '<div class="cities">';
         for (const city of cities) {
              html += `<div class="city">
-                        <h2>${city.name}</h2>
-                        <p><strong>Country:</strong> ${city.country}<br>
-                            <strong>Continent:</strong> ${city.continent}</p>
-                        <img src="${city.picture}" alt="Picture of ${city.name}">
-                        <button class="activitiesBtn" data-city="${city.name}">Show all activities</button>
-                        <div class="activities" id="activities${city.name}"></div>
+                        <div class="container-city">
+                            <div class="row">
+                                <div class="col-md-2 text-center">
+                                    <h2>${city.name}</h2>
+                                    <p><strong>Country:</strong> ${city.country}<br>
+                                    <strong>Continent:</strong> ${city.continent}</p>
+                                    <button class="btn btn-primary" data-city="${city.name}">Show all activities</button>
+                                    <div class="activities" id="activities${city.name}"></div>
+                                </div>
+                                <div class="col-md-9">
+                                    <img src="${city.picture}" alt="Picture of ${city.name}">
+                                </div>
+                            </div>
+                        </div>
                     </div>`;
         }
         document.getElementById('getResult').innerHTML = html;
@@ -81,13 +89,22 @@ searchButton.addEventListener('click', async function (event){
         } else {
             for (const city of cities) {
                 html += `<div class="city">
-                            <h2>${city.name}</h2>
-                            <img src="${city.picture}" alt="Picture of ${city.name}">
-                            <button class="activitiesBtn" data-city="${city.name}">Show all activities</button>
-                            <div class="activities" id="activities${city.name}"></div>
-                        </div>`;
-                document.getElementById('getResult').innerHTML = html;
+                            <div class="container-city">
+                                <div class="row">
+                                    <div class="col-md-2 text-center">
+                                        <h2>${city.name}</h2>
+                                        <button class="btn btn-primary" data-city="${city.name}">Show all activities</button>
+                                        <div class="activities" id="activities${city.name}"></div>
+                                    </div>
+                                        <div class="col-md-9">
+                                            <img src="${city.picture}" alt="Picture of ${city.name}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
+                
             }
+            document.getElementById('getResult').innerHTML = html;
         }  
     }
     catch(error){
@@ -158,7 +175,7 @@ document.getElementById('getResult').addEventListener('click', async function(ev
                 for (const activity of activities) {
                     activityHtml += `<p><strong>Activity:</strong> ${activity.name}<br><strong>Type:</strong> ${activity.type}</p>`;
                 }
-                activityHtml += `<button class="filter-kids" data-city="${cityName}">Filter for Kid-Friendly</button>`;
+                activityHtml += `<button class="btn btn-primary filter-kids" data-city="${cityName}">Filter for Kid-Friendly</button>`;
             }
             activitiesDiv.innerHTML = activityHtml;
             activitiesButton.textContent = "Hide activities";

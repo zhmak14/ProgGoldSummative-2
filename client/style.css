@@ -1,18 +1,122 @@
-.city {
+body {
+    font-family: Arial;
+    padding: 20px;
+    background-color: #fff0b9 !important;
+}
+
+.textAbout {
+    max-width: 800px;
+    font-size: large;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: justify; /* Justifies the text, optional based on design preference */
+    line-height: 1.6; /* Adjusts the line height for better readability */
+}
+
+.row {
+    justify-content: center;
+}
+
+h1 {
+    text-align: center;
+    color: #212121;
+    margin-bottom: 30px;
+}
+
+form {
+    margin-top: 20px;
     margin-bottom: 20px;
-    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.form-label {
+    padding: 5px;
+}
+
+.container {
+    width: 50%;
+}
+
+.col {
+    width: 50%;
+}
+
+input[type="text"], input[type="file"], select {
+    margin: 10px 0;
+    padding: 8px;
+    width: 80%;
+    display: inline-block;
+}
+
+.btn-primary {
+    padding: 10px 20px;
+    background-color: #018930 !important;
+    border-color: #018930 !important;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #00508a !important;
+}
+
+.city {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    justify-content: center;
+    border: 2px solid#018930;
+    width: 65%;
+    margin-bottom: 20px;
     padding: 10px;
+    background-color: #eddea7;
 }
 
 .city img {
-    width: 100%; /* Makes the image responsive */
+    width: 100%;
     height: auto;
-    max-width: 400px; /* Maximum width */
+    margin-bottom: 20px;
+    max-width: 800px !important;
     display: block;
-    margin: 0 auto; /* Centers the image */
+    margin: 10px auto;
 }
 
 .city h2 {
     color: red;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.activities {
+    margin-top: 10px;
+}
+
+#showFormButton, #showActivityFormButton, #searchCities {
+    width: 250px;
+    display: inline-block;
+}
+
+#search {
+    display: block;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#getCities {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 250px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+input[name="input"] {
+    margin-bottom: 5px;
+}
+
+#newCityForm, #newActivityForm {
+    display: none;
 }
 
