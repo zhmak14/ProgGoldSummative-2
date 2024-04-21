@@ -21,23 +21,8 @@ app.use(express.json());
 app.use('/images', express.static('images'));
 
 app.get('/cities', function (req, resp) {
-    resp.send(cities);
+    resp.status(200).send(cities);
   });
-
-app.get('/city/:name', function (req, resp) {
-    const cityName = req.params.name;
-    let found = false;
-    for (const city of cities) {
-        if (city.name.toLowerCase() === cityName.toLowerCase()) {
-            resp.send(city);
-            found = true;
-            break;
-        }
-    }
-    if (!found) {
-        resp.send('No such city');
-    }
-});
 
 app.get('/citysearch', function (req, resp) {
     const input = req.query.input;
@@ -51,9 +36,9 @@ app.get('/citysearch', function (req, resp) {
       }
     }
     if (results.length === 0) {
-        resp.json({ message: 'Sorry, nothing found' });
+        resp.status(200).json({ message: 'Sorry, nothing found' });
     } else {
-        resp.send(results);
+        resp.status(200).send(results);
     }
   });
 

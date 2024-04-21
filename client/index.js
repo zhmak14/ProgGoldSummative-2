@@ -143,7 +143,7 @@ newCityForm.addEventListener('submit', async function (event) {
     }
 });
 
-//add city form
+//show city form
 showButton.addEventListener('click', function() {
     if (newCityForm.style.display == 'none' || newCityForm.style.display == '') {
         newCityForm.style.display = 'block';  
@@ -200,7 +200,7 @@ async function filterKidFriendlyActivities(cityName, activitiesDiv) {
         let activities = await response.json();
         let kidsHtml = '';
         for (const activity of activities) {
-            if (activity.kids.toLowerCase() === 'yes') {
+            if (activity.kids.toLowerCase() == 'yes') {
                 kidsHtml += `<p><strong>Activity:</strong> ${activity.name}</p>`;
             }
         }
